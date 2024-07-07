@@ -55,7 +55,7 @@ namespace MagicVilla_Web.Services
                 HttpResponseMessage apiResponse = null;
 
                 //calling api end point
-                apiResponse = await client.SendAsync(message);
+                apiResponse = await client.SendAsync(message);//always debug this to check API response
 
                 //extracting content
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();

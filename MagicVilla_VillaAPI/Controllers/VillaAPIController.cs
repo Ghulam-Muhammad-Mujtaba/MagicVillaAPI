@@ -43,8 +43,9 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
-        [HttpGet("id", Name = "GetVilla")] //only call when id is passed, Name of te method
+        //[HttpGet("id", Name = "GetVilla")] 
 
+        [HttpGet("{id:int}", Name = "GetVilla")]//only call when id is passed, Name of te method
         //[ProducesResponseType(404)] //not found
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
