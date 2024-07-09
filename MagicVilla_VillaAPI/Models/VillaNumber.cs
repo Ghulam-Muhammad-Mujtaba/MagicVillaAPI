@@ -9,6 +9,8 @@ namespace MagicVilla_VillaAPI.Models
 
         [ForeignKey("Villa")]
         public int VillaID { get; set; }
+
+        //Populate Villa properties based on Foreign Key relation (EntityFrameWork)
         public Villa Villa { get; set; }
         public int VillaNo { get; set; }
         public string SpecialDetails { get; set; }
