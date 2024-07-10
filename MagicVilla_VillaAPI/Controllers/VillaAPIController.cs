@@ -25,7 +25,6 @@ namespace MagicVilla_VillaAPI.Controllers
             this._response = new();
         }
 
-        [Authorize]
         [HttpGet] //Default End Point
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -47,7 +46,6 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet("{id:int}", Name = "GetVilla")]//only call when id is passed, Name of te method
         //[ProducesResponseType(404)] //not found
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -138,7 +136,7 @@ namespace MagicVilla_VillaAPI.Controllers
 
         }
 
-        [Authorize(Roles = "CUSTOM")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:int}", Name = "DeleteVilla")] //only call when id is passed, Name of the method. Method expects id
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -172,6 +170,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateVilla")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -199,6 +198,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id:int}", Name = "UpdatePartialVilla")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
