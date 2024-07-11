@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
-namespace MagicVilla_VillaAPI.Controllers
+namespace MagicVilla_VillaAPI.Controllers.v1
 {
-    [Route("api/VillaNumberAPI")] // Or [Route("api/[controller]")]
+    //[Route("api/VillaNumberAPI")] // Or [Route("api/[controller]")]
+
+    [Route("api/v{version:apiVersion}/VillaNumberAPI")] //For multiple version in same controller
     [ApiController]
+    [ApiVersion("1.0")]
     public class VillaNumberAPIController : ControllerBase
     {
         protected APIResponse _response;
@@ -23,12 +26,19 @@ namespace MagicVilla_VillaAPI.Controllers
         {
             _dbVillaNumber = dbVillaNumber;
             _mapper = mapper;
-            this._response = new();
+            _response = new();
             _dbVilla = dbVilla;
+        }
+
+        [HttpGet("GetString")] //Swagger UI can't differentiate between two HttpGet methods. So, always give name to HttpGet methods
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "String1", "string2" };
         }
 
         [HttpGet] //Default End Point
         [ProducesResponseType(StatusCodes.Status200OK)]
+        //[MapToApiVersion("1.0")]
         public async Task<ActionResult<APIResponse>> GetVillaNumbers()
         {
             try
@@ -46,9 +56,9 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
-		[HttpGet("{id:int}", Name = "GetVillaNumber")]//only call when id is passed, Name of the method
-		//[ProducesResponseType(404)] //not found
-		[ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("{id:int}", Name = "GetVillaNumber")]//only call when id is passed, Name of the method
+                                                      //[ProducesResponseType(404)] //not found
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<APIResponse>> GetVillaNumber(int id)
